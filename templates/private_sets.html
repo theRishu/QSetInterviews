@@ -1,0 +1,93 @@
+<!-- private_sets.html -->
+{% extends "base.html" %} {% block content %}
+<style>
+  .title-column {
+    width: 40%;
+  }
+
+  .table-container {
+    max-height: 400px;
+    overflow-y: scroll;
+  }
+
+  /* LeetCode theme */
+  .table {
+    color: #212529;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+    border: 1px solid #dee2e6;
+  }
+
+  .table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    background-color: #f8f9fa;
+    color: #212529;
+    font-weight: 500;
+    text-align: left;
+  }
+
+  .table tbody + tbody {
+    border-top: 2px solid #dee2e6;
+  }
+
+  .table td,
+  .table th {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+  }
+
+  .table td {
+    word-break: break-word;
+  }
+
+  .btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+
+  .btn-primary:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+  }
+</style>
+
+<h1 class="title text-center">All Interview Sets Created by You</h1>
+
+<div class="table-responsive table-container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th class="title-column">Title</th>
+        <th>Date Created</th>
+        <th>Label</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for question_set in question_sets %} {% if not question_set.private %}
+      <tr>
+        <td>{{ question_set.id }}</td>
+        <td>{{ question_set.title }}</td>
+        <td>{{ question_set.date_created.strftime('%B %d, %Y') }}</td>
+        <td>{{ question_set.label }}</td>
+        <td>
+          <a
+            href="{{ url_for('question_set', id=question_set.id) }}"
+            class="btn btn-primary"
+            >View Questions</a
+          >
+        </td>
+      </tr>
+      {% endif %} {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

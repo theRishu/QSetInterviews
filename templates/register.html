@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% block title %}Register{% endblock %} {% block
+content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card mt-3">
+      <div class="card-body">
+        <h1 class="mt-3">Register</h1>
+        <form action="" method="post" class="mt-3">
+          {{ form.hidden_tag() }}
+
+          <div class="form-group">
+            <label for="{{ form.name.id }}">Name</label>
+            {{ form.name(class="form-control", id=form.name.id) }} {% for error
+            in form.name.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.email.id }}">Email</label>
+            {{ form.email(class="form-control", id=form.email.id) }} {% for
+            error in form.email.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.password.id }}">Password</label>
+            {{ form.password(class="form-control", id=form.password.id) }} {%
+            for error in form.password.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.confirm_password.id }}">Confirm Password</label>
+            {{ form.confirm_password(class="form-control",
+            id=form.confirm_password.id) }} {% for error in
+            form.confirm_password.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+          </div>
+
+          <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+
+        <p class="mt-2">
+          Already have an account? <a href="{{ url_for('login') }}">Login</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

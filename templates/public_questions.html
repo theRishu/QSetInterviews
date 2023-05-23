@@ -1,0 +1,99 @@
+{% extends "base.html" %} {% block content %}
+<style>
+  .title-column {
+    width: 40%;
+  }
+
+  .table-container {
+    max-height: 400px;
+    overflow-y: scroll;
+  }
+
+  /* LeetCode theme */
+  .table {
+    color: #333;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    border: 1px solid #e4e6eb;
+  }
+
+  .table thead th {
+    vertical-align: middle;
+    border-bottom: 1px solid #e4e6eb;
+    background-color: #f5f5f5;
+    font-weight: 600;
+    text-align: left;
+    padding: 0.75rem;
+  }
+
+  .table tbody + tbody {
+    border-top: 1px solid #e4e6eb;
+  }
+
+  .table td,
+  .table th {
+    padding: 0.75rem;
+    vertical-align: middle;
+    border-top: 1px solid #e4e6eb;
+  }
+
+  .btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  .btn-primary:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+  }
+
+  .title {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+</style>
+
+<h1 class="title">All Interview Sets Created for You</h1>
+
+<div class="table-responsive table-container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th class="title-column">Title</th>
+        <th>Date Created</th>
+        <th>Label</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for question_set in question_sets %} {% if not question_set.private %}
+      <tr>
+        <td>{{ question_set.id }}</td>
+        <td>{{ question_set.title }}</td>
+        <td>{{ question_set.date_created.strftime('%B %d, %Y') }}</td>
+        <td>{{ question_set.label }}</td>
+        <td>
+          <a
+            href="{{ url_for('question_set', id=question_set.id) }}"
+            class="btn btn-primary"
+            >View Questions</a
+          >
+        </td>
+      </tr>
+      {% endif %} {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

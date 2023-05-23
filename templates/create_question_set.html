@@ -1,0 +1,95 @@
+{% extends 'base.html' %} {% block content %}
+<style>
+  .card {
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+
+  .card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 20px;
+  }
+
+  .card-body {
+    background-color: #fff;
+    padding: 30px;
+  }
+
+  .form-group {
+    margin-bottom: 30px;
+  }
+
+  .form-control-label {
+    font-weight: bold;
+  }
+
+  .help-block {
+    color: #dc3545;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+  }
+
+  .btn-primary:focus,
+  .btn-primary.focus {
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+  }
+</style>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-center mb-0">New Question Set</h2>
+        </div>
+        <div class="card-body">
+          <form method="POST" action="{{ url_for('create_question_set') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+              {{ form.title.label(class="form-control-label") }} {{
+              form.title(class="form-control") }} {% for error in
+              form.title.errors %}
+              <small class="form-text text-danger">{{ error }}</small>
+              {% endfor %}
+            </div>
+            <div class="form-group">
+              {{ form.private.label(class="form-control-label") }} {{
+              form.private(class="form-control") }}
+            </div>
+            <div class="form-group">
+              {{ form.label.label(class="form-control-label") }} {{
+              form.label(class="form-control") }} {% for error in
+              form.label.errors %}
+              <small class="form-text text-danger">{{ error }}</small>
+              {% endfor %}
+            </div>
+            {% for i in range(1, 6) %}
+            <div class="form-group">
+              {{ form['question_' + i|string].label(class="form-control-label")
+              }} {{ form['question_' + i|string](class="form-control") }} {% for
+              error in form['question_' + i|string].errors %}
+              <small class="form-text text-danger">{{ error }}</small>
+              {% endfor %}
+            </div>
+            {% endfor %}
+            <div class="form-group text-center">
+              {{ form.submit(class="btn btn-primary btn-lg") }}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

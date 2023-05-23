@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>My Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      /* Global Styles */
+      body {
+        background-color: #f8f9fa;
+        color: #333;
+        font-family: Arial, sans-serif;
+        margin-bottom: 0; /* Remove whitespace after footer */
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        background-color: #212529;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-brand {
+        font-size: 24px;
+        font-weight: bold;
+        color: #fff;
+      }
+
+      .navbar-toggler {
+        border: none;
+        outline: none;
+      }
+
+      .navbar-nav {
+        align-items: center;
+      }
+
+      .nav-link {
+        font-size: 16px;
+        color: #fff;
+        padding: 10px 15px;
+        transition: 0.3s;
+      }
+
+      .nav-link:hover {
+        color: #f8f9fa;
+      }
+
+      /* Content Container Styles */
+      .content-container {
+        min-height: calc(
+          100vh - 80px - 60px
+        ); /* 80px for navbar, 60px for footer */
+        padding-top: 20px;
+      }
+
+      .flashes li {
+        background-color: #d73a49;
+        color: #fff;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+      }
+
+      .navbar-nav.ml-auto {
+        margin-left: auto !important;
+      }
+
+      footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #212529;
+        color: #fff;
+
+        text-align: center;
+      }
+
+      footer .text-center {
+        margin-bottom: 0; /* Remove whitespace below footer content */
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="{{ url_for('home') }}">QSetInterviews </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('play_recorded_video') }}"
+                >Watch recorded interview</a
+              >
+            </li>
+
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+            </li>
+            {% endif %}
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Interview
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ url_for('public_sets') }}"
+                  >Public Interview</a
+                >
+                <a class="dropdown-item" href="{{ url_for('private_sets') }}"
+                  >Private Interview</a
+                >
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{ url_for('question_sets') }}"
+                  >All Interview</a
+                >
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="content-container">
+      <div class="container">
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <ul class="flashes">
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %} {% endwith %} {% block content %}{% endblock %}
+      </div>
+    </div>
+
+    <footer class="text-light text-center text-lg-start">
+      <div class="text-center p-3">
+        QSetInterviews &copy; 2023. All rights reserved.
+        <a class="text-light" href="https://github.com/therishu">Created by</a>
+      </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+{% extends "base.html" %} {% block content %}
+<div class="container">
+  <div class="row justify-content-center align-items-center mt-5">
+    <div class="col-md-6">
+      <h1 class="text-center mb-4" style="color: #4db6ac; font-size: 2.5rem">
+        Welcome{% if current_user.is_authenticated %}, {{ current_user.name }}{%
+        endif %}!
+      </h1>
+
+      <div class="d-flex flex-column align-items-center mb-4">
+        {% if current_user.is_authenticated %}
+        <a
+          href="{{ url_for('create_question_set') }}"
+          class="btn btn-primary btn-lg rounded-pill px-5 py-3 mt-2"
+          style="
+            font-size: 1.2rem;
+            background-color: #4db6ac;
+            border-color: #4db6ac;
+            width: 100%;
+            max-width: 300px;
+          "
+        >
+          Create a Custom Question Set
+          <span style="font-size: 1.2rem; margin-left: 5px">+</span>
+        </a>
+
+        <a
+          href="{{ url_for('question_sets') }}"
+          class="btn btn-outline-primary btn-lg rounded-pill mt-3 px-5 py-3"
+          style="font-size: 1.2rem; width: 100%; max-width: 300px"
+        >
+          Start your Interview Now
+        </a>
+        {% else %}
+        <p class="mb-4 text-center" style="color: #757575; font-size: 1.2rem">
+          Take your interview preparation to the next level with our advanced
+          platform. Sign up or log in to get started and unlock a wealth of
+          resources.
+        </p>
+        <a
+          href="{{ url_for('register') }}"
+          class="btn btn-primary btn-lg rounded-pill px-5 py-3 mt-2"
+          style="
+            font-size: 1.2rem;
+            background-color: #4db6ac;
+            border-color: #4db6ac;
+            width: 100%;
+            max-width: 300px;
+          "
+        >
+          Register for an Account
+        </a>
+        <a
+          href="{{ url_for('login') }}"
+          class="btn btn-outline-primary btn-lg rounded-pill mt-3 px-5 py-3"
+          style="font-size: 1.2rem; width: 100%; max-width: 300px"
+        >
+          Log In to Your Account
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Camera Recording</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body,
+      html {
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .video-container {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      #videoPlayer {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .button-container {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+      }
+
+      .button-container button {
+        margin: 5px;
+      }
+
+      .message-container {
+        text-align: center;
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="video-container">
+      <video id="videoPlayer" autoplay></video>
+    </div>
+
+    <div class="button-container">
+      <form
+        id="interviewForm"
+        action="{{ url_for('interview', id=question_set.id) }}"
+        method="post"
+      >
+        <input type="hidden" name="start_interview" value="true" />
+        <button id="startButton" class="btn btn-danger" type="submit">
+          Start Interview
+        </button>
+      </form>
+      <a href="home.html" class="btn btn-primary">Home</a>
+    </div>
+
+    <script>
+      // Get the necessary elements
+      const startButton = document.getElementById("startButton");
+      const videoContainer = document.querySelector(".video-container");
+      const buttonContainer = document.querySelector(".button-container");
+      const videoPlayer = document.getElementById("videoPlayer");
+
+      // Function to handle the Start Interview button click
+      function handleStartButtonClick() {
+        // Hide the video container and button container
+        videoContainer.style.display = "none";
+        buttonContainer.style.display = "none";
+
+        // Stop video recording
+        const stream = videoPlayer.srcObject;
+        const tracks = stream.getTracks();
+        tracks.forEach((track) => track.stop());
+
+        // Display a "Best of luck" message
+        const messageContainer = document.createElement("div");
+        messageContainer.innerText = "Interview Started Best of luck!";
+        messageContainer.classList.add("message-container");
+        document.body.appendChild(messageContainer);
+      }
+
+      // Add event listener to start button
+      startButton.addEventListener("click", handleStartButtonClick);
+
+      // Access the user's camera and stream video to the video element
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then((stream) => {
+          videoPlayer.srcObject = stream;
+        })
+        .catch((error) => {
+          console.error("Error accessing camera:", error);
+        });
+    </script>
+  </body>
+</html>

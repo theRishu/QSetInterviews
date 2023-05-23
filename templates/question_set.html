@@ -1,0 +1,89 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card neumorphism">
+        <div class="card-header bg-primary text-white">
+          <h1 class="card-title text-center">{{ question_set.title }}</h1>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            <strong>Created by:</strong> {{ question_set.user.name }}
+          </p>
+          <p class="card-text">
+            <strong>Created on:</strong> {{
+            question_set.date_created.strftime('%Y-%m-%d %H:%M:%S') }}
+          </p>
+          <div class="row">
+            <div class="col-md-6">
+              <p class="card-text">
+                <strong>Private:</strong> {{ "Yes" if question_set.private else
+                "No" }}
+              </p>
+            </div>
+            <div class="col-md-6">
+              <p class="card-text">
+                <strong>Label:</strong> {{ question_set.label }}
+              </p>
+            </div>
+          </div>
+          <div class="text-center mt-4">
+            <button
+              id="show-questions-btn"
+              class="btn btn-primary neumorphism-button"
+              data-toggle="modal"
+              data-target="#questionModal"
+            >
+              Show Questions
+            </button>
+            
+                <a href="/interview/{{ question_set.id }}" class="btn btn-primary neumorphism-button">Start Interview</a>
+             
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal dialog for displaying questions -->
+<div
+  class="modal fade"
+  id="questionModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="questionModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content neumorphism">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="questionModalLabel">Questions</h5>
+        <button
+          type="button"
+          class="close text-white"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="list-group">
+          {% for i in range(1, 6) %} {% set question = question_set['question_'
+          ~ i] %} {% if question %}
+          <a href="#" class="list-group-item list-group-item-action"
+            >{{ question }}</a
+          >
+          {% endif %} {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Video container for camera feed -->
+<div id="video-container"></div>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ question_set.title }}</h1>
+  
+ 
+  <p>Label: {{ question_set.label }}</p>
+  <ul>
+    {% if question_set.question_1 %}
+      <li>{{ question_set.question_1 }}</li>
+    {% endif %}
+    {% if question_set.question_2 %}
+      <li>{{ question_set.question_2 }}</li>
+    {% endif %}
+    {% if question_set.question_3 %}
+      <li>{{ question_set.question_3 }}</li>
+    {% endif %}
+    {% if question_set.question_4 %}
+      <li>{{ question_set.question_4 }}</li>
+    {% endif %}
+    {% if question_set.question_5 %}
+      <li>{{ question_set.question_5 }}</li>
+    {% endif %}
+  </ul>
+{% endblock %}

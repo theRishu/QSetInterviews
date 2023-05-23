@@ -1,0 +1,43 @@
+<!-- private_sets.html -->
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+  <h1 class="text-center">All Question Sets</h1>
+  <div class="table-responsive" style="max-height: 400px; overflow-y: scroll">
+    <table id="question-sets-table" class="table table-striped table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" style="width: 10%">Question Set ID</th>
+          <th scope="col" style="width: 50%">Question Set Title</th>
+          <th scope="col" style="width: 15%">Private</th>
+          <th scope="col" style="width: 15%">Label</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for question_set in question_sets %}
+        <tr>
+          <td>{{ question_set.id }}</td>
+          <td>
+            <a href="{{ url_for('question_set', id=question_set.id) }}"
+              >{{ question_set.title }}</a
+            >
+          </td>
+          <td>{{ "Yes" if question_set.private else "No" }}</td>
+          <td>{{ question_set.label }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"
+/>
+<script>
+  $(document).ready(function () {
+    $("#question-sets-table").DataTable();
+  });
+</script>
+{% endblock %}

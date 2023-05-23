@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% block content %}
+
+<title>Interview App - Recorded Video</title>
+<style>
+  h1 {
+    text-align: center;
+  }
+</style>
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6">
+        <h1 class="mt-5">Interview App - Recorded Video</h1>
+
+        {% if message %}
+        <p class="text-center">{{ message }}</p>
+        {% endif %}
+
+        <div class="embed-responsive embed-responsive-16by9 mt-4">
+          <video class="embed-responsive-item" controls>
+            <source src="{{ video_file }}" type="video/mp4" />
+          </video>
+        </div>
+
+        <div class="text-center mt-4">
+          <a class="btn btn-primary btn-lg" href="/index">Go to Home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+{% endblock %}
