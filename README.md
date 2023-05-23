@@ -30,7 +30,8 @@ QSetInterviews is a web application that allows users to create and conduct inte
 
 1. Clone the repository:
 
-`git clone https://github.com/your-username/QSetInterviews.git` 
+```sh
+git clone https://github.com/your-username/QSetInterviews.git``` 
 
 ### Navigate to the project directory
 
