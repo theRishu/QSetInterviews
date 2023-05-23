@@ -31,19 +31,23 @@ QSetInterviews is a web application that allows users to create and conduct inte
 1. Clone the repository:
 
 ```sh
-git clone https://github.com/your-username/QSetInterviews.git``` 
+git clone https://github.com/your-username/QSetInterviews.git
+```
 
 ### Navigate to the project directory
-
-`cd QSetInterviews` 
+```sh
+cd QSetInterviews
+```
 
 ### Install dependencies
-
-`pip install -r requirements.txt` 
+```sh
+pip install -r requirements.txt
+```
 
 ### Run the application
-
-`python app.py` 
+```sh
+python app.py
+```
 
 
 ## Usage
